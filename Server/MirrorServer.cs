@@ -5,11 +5,11 @@ using System.Net.Sockets;
 
 namespace Server
 {
-    internal class Server
+    public class MirrorServer
     {
         public int BufferSize { get; set; }
         private byte[] _Buffer;
-        public Server(int bufferSize)
+        public MirrorServer(int bufferSize)
         {
             BufferSize = bufferSize;
             _Buffer = new byte[bufferSize];
