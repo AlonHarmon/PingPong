@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using System;  
+using System;
 using System.Net;  
 using System.Net.Sockets;  
 
@@ -8,11 +8,11 @@ namespace Server
     public class MirrorServer
     {
         public int BufferSize { get; set; }
-        private byte[] _Buffer;
+        private byte[] _buffer;
         public MirrorServer(int bufferSize)
         {
             BufferSize = bufferSize;
-            _Buffer = new byte[bufferSize];
+            _buffer = new byte[bufferSize];
         }
         public void Start(int port, IPAddress ipAddress)
         {
@@ -25,12 +25,11 @@ namespace Server
             while(true)
             {
                 await Task.Delay(1000);
-                int bytesReceived = handler.Receive(_Buffer);
-                handler.Send(_Buffer);
-                Array.Clear(_Buffer, 0, _Buffer.Length);
-            }
-            
+                int bytesReceived = handler.Receive(_buffer);
 
+                handler.Send(_buffer);
+                Array.Clear(_buffer, 0, _buffer.Length);
+            }
         }
         private void StartListen(IPEndPoint endPoint, IPAddress ipAddress)
         {
