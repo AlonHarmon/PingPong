@@ -1,11 +1,12 @@
 using System.Security.AccessControl;
 using System.Threading.Tasks;
 
-namespace Client
+namespace Client.Abstractions
 {
     public interface IClient
     {
-         Task<string> Receive();
-         Task Receive(string Message);
+         string Receive();
+         void Send(string message);
+         void Connect();
     }
 }
