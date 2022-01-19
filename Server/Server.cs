@@ -1,3 +1,8 @@
+using System.Threading.Tasks.Sources;
+using System.Runtime.CompilerServices;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
 using System;  
@@ -15,6 +20,7 @@ namespace Server
         public Server(int bufferSize)
         {
             BufferSize = bufferSize;
+            _Buffer = new byte[bufferSize];
         }
         public void Start(int port, IPAddress ipAddress)
         {
@@ -24,7 +30,15 @@ namespace Server
 
         private async Task ClientHandler(Socket handler)
         {
-            //TODO : send back to client clients msg
+            while(true)
+            {
+                await Task.Delay(1000);
+                int bytesReceived = handler.Receive(_Buffer);
+                handler.Send(_Buffer);
+                Array.Clear(_Buffer, 0, _Buffer.Length);
+            }
+            
+
         }
         private void StartListen(IPEndPoint endPoint, IPAddress ipAddress)
         {
