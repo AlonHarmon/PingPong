@@ -15,7 +15,7 @@ namespace Client
         {
             _client = client;
             _input = input;
-            __output = output;
+            _output = output;
         }
 
         public async Task Start()
@@ -24,7 +24,7 @@ namespace Client
             while(true)
             {
                 await Task.Delay(1000);
-                string message = _input.getInput();
+                string message = _input.Receive();
                 _client.Send(message);
                 string receivedMessage = _client.Receive();
                 _output.Out(receivedMessage);
