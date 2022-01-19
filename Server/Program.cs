@@ -7,8 +7,8 @@ namespace Server
     {
         static void Main(string[] args)
         {
-            var ipAddress = new IPAddress(Encoding.ASCII.GetBytes(args[1])); 
-            int port = int.Parse(args[0]);
+            var ipAddress = IPAddress.Parse(args[0]); 
+            int port = int.Parse(args[1]);
             var server = new MirrorServer(1024);
             server.Start(6060, ipAddress);
         }
