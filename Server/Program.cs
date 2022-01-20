@@ -8,7 +8,10 @@ namespace Server
         {
             var ipAddress = IPAddress.Parse(args[0]); 
             int port = int.Parse(args[1]);
-            var server = new MirrorServer(1024);
+
+            var serverBuilder = new EchoServerBuilder();
+            var server = serverBuilder.Build();
+
             server.Start(port, ipAddress);
         }
     }
