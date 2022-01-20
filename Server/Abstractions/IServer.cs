@@ -6,8 +6,8 @@ namespace Server.Abstractions
 {
     public interface IServer
     {
-         string Receive();
-         void Send();
+         string Receive(Guid connection);
+         void Send(Guid connection, string message);
 
          void Start(int port, IPAddress ipAddress, Action<IServer> clientHandler);
     }
