@@ -24,6 +24,7 @@ namespace Client
                 SocketType.Stream, ProtocolType.Tcp );
             _socket.Connect(ipAddress, port);
         }
+        
         public string Receive()
         {
             int byteReceived = _socket.Receive(_buffer);

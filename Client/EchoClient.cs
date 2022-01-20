@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    public class EchoClient
+    public class EchoClient : ISender
     {
         private IClient _client;
-        private IInput _input;
+        private IObjectInput<string> _input;
         private IOutput _output;
-        public EchoClient(IClient client, IInput input, IOutput output)
+        public EchoClient(IClient client, IObjectInput<string> input, IOutput output)
         {
             _client = client;
             _input = input;

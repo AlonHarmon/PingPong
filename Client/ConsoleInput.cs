@@ -3,7 +3,7 @@ using Client.Abstractions;
 
 namespace Client
 {
-    public class ConsoleInput : IInput
+    public class ConsoleInput : IObjectInput<string>
     {
         public string Receive()
         {
