@@ -1,4 +1,6 @@
-﻿using System.Net.WebSockets;
+﻿using System.Collections.Immutable;
+using System.Net.NetworkInformation;
+using System.Net.WebSockets;
 using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
@@ -11,9 +13,9 @@ namespace Client
         {
             var ipAddress = IPAddress.Parse(args[0]); 
             int port = int.Parse(args[1]);
-            var socketClient = new SocketClient(1024, ipAddress, port);
-            EchoClient client = new EchoClient(socketClient, new ConsoleInput(), new ConsoleOutput());
-            await client.Start();
+            var builder = new ObjectSenderBuilder();
+            var sender = builder.Build(ipAddress, port);
+            await sender.Start();
         }
     }
 }
