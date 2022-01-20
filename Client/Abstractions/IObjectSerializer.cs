@@ -4,7 +4,7 @@ namespace Client.Abstractions
 {
     public interface IObjectSerializer
     {
-         string Serialize(Type objectType, Object objectToSerialize);
-         Object Deserialize(Type objectType, string objectToDeserialize);
+         string Serialize<T>(T objectToSerialize);
+         T Deserialize<T>(string objectToDeserialize);
     }
 }

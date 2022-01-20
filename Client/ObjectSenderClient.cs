@@ -22,13 +22,13 @@ namespace Client
             while (true)
             {
                 T personToSend = _input.Receive();
-                string person = _serializer.Serialize(typeof(Person), personToSend);
+                string person = _serializer.Serialize<T>(personToSend);
                 _client.Send(person);
 
                 // TODO: rcv, send = socket.split
 
                 string receivedPerson = _client.Receive();
-                T deserializedPerson = (T) _serializer.Deserialize(typeof(T),  receivedPerson);
+                T deserializedPerson = (T) _serializer.Deserialize<T>(receivedPerson);
                 _output.Out(deserializedPerson.ToString());
             }
         }

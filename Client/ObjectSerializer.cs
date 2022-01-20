@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Security.AccessControl;
 using System;
 using System.Xml.Serialization;
@@ -9,24 +10,22 @@ namespace Client
 {
     public class ObjectSerializer : IObjectSerializer
     {
-        public string Serialize(Type objectType, Object objectToSerialize)
+        public string Serialize<T>(T objectToSerialize)
         {
-            XmlSerializer ser = new XmlSerializer(objectType);
-            TextWriter stringWriter = new StringWriter();
+            XmlSerializer ser = new XmlSerializer(typeof(T));
+            StringWriter stringWriter = new StringWriter();
 
             ser.Serialize(stringWriter, objectToSerialize);
 
             return stringWriter.ToString();
         }
 
-        public Object Deserialize(Type objectType, string objectToDeserialize)
+        public T Deserialize<T>(string objectToDeserialize)
         {
-            XmlSerializer ser = new XmlSerializer(objectType);
-            Stream stream = new MemoryStream();
+            XmlSerializer ser = new XmlSerializer(typeof(T));
+            TextReader reader = new StringReader(objectToDeserialize);
 
-            stream.Write(Encoding.ASCII.GetBytes(objectToDeserialize), 0, objectToDeserialize.Length);
-
-            return ser.Deserialize(stream);
+            return (T) ser.Deserialize(reader);
         }
 
     }
