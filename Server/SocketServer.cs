@@ -8,11 +8,11 @@ using System.Collections.Concurrent;
 
 namespace Server
 {
-    public class SecketServer : IServer
+    public class SocketServer : IServer
     {
         public int BufferSize { get; set; }
         private ConcurrentDictionary<Guid, Socket> _sockets;
-        public SecketServer(int bufferSize)
+        public SocketServer(int bufferSize)
         {
             BufferSize = bufferSize;
             _sockets = new ConcurrentDictionary<Guid, Socket>();
