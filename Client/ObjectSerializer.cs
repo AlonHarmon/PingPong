@@ -3,10 +3,11 @@ using System;
 using System.Xml.Serialization;
 using System.IO;
 using System.Text;
+using Client.Abstractions;
 
 namespace Client
 {
-    public class ObjectSerializer
+    public class ObjectSerializer : IObjectSerializer
     {
         public string Serialize(Type objectType, Object objectToSerialize)
         {
