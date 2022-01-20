@@ -8,17 +8,17 @@ using System.Collections.Concurrent;
 
 namespace Server
 {
-    public class MirrorServer : IServer
+    public class SecketServer : IServer
     {
         public int BufferSize { get; set; }
         private byte[] _buffer;
         private ConcurrentDictionary<Guid, Socket> _sockets;
-        public MirrorServer(int bufferSize)
+        public SecketServer(int bufferSize)
         {
             BufferSize = bufferSize;
             _buffer = new byte[bufferSize];
         }
-        public void Start(int port, IPAddress ipAddress, Action<IServer> clientHandler)
+        public void Start(int port, IPAddress ipAddress, Func<Guid, Task> clientHandler)
         {
             var endPoint = new IPEndPoint(ipAddress, port);
             var listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -28,8 +28,9 @@ namespace Server
             while (true)
             {
                 Socket handler = listener.Accept();
-                _sockets[Guid.NewGuid()] = handler;
-                clientHandler?.Invoke(this);
+                Guid clientGuid = Guid.NewGuid();
+                _sockets[clientGuid] = handler;
+                clientHandler?.Invoke(clientGuid);
             }
         }
 

@@ -1,6 +1,7 @@
 using System.Security.AccessControl;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Server.Abstractions
 {
@@ -9,6 +10,6 @@ namespace Server.Abstractions
          string Receive(Guid connection);
          void Send(Guid connection, string message);
 
-         void Start(int port, IPAddress ipAddress, Action<IServer> clientHandler);
+         void Start(int port, IPAddress ipAddress, Func<Guid, Task> clientHandler);
     }
 }
