@@ -11,12 +11,11 @@ namespace Server
     public class SecketServer : IServer
     {
         public int BufferSize { get; set; }
-        private byte[] _buffer;
         private ConcurrentDictionary<Guid, Socket> _sockets;
         public SecketServer(int bufferSize)
         {
             BufferSize = bufferSize;
-            _buffer = new byte[bufferSize];
+            _sockets = new ConcurrentDictionary<Guid, Socket>();
         }
         public void Start(int port, IPAddress ipAddress, Func<Guid, Task> clientHandler)
         {
@@ -34,22 +33,11 @@ namespace Server
             }
         }
 
-        private async Task ClientHandler(Socket handler)
-        {
-            while(true)
-            {
-                await Task.Delay(1000);
-                int bytesReceived = handler.Receive(_buffer);
-
-                handler.Send(_buffer);
-                Array.Clear(_buffer, 0, _buffer.Length);
-            }
-        }
-
         public string Receive(Guid connection)
         {
-            int bytesReceived = _sockets[connection].Receive(_buffer);
-            return Encoding.ASCII.GetString(_buffer, 0, bytesReceived);
+            var buffer = new byte[BufferSize];
+            int bytesReceived = _sockets[connection].Receive(buffer);
+            return Encoding.ASCII.GetString(buffer, 0, bytesReceived);
         }
 
         public void Send(Guid connection, string message)
