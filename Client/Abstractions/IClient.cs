@@ -7,6 +7,5 @@ namespace Client.Abstractions
     {
          string Receive();
          void Send(string message);
-         void Connect();
     }
 }

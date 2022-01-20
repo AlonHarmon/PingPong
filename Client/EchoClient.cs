@@ -1,6 +1,3 @@
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
-using System.Net.Http;
 using Client.Abstractions;
 using System.Threading.Tasks;
 
@@ -20,7 +17,6 @@ namespace Client
 
         public async Task Start()
         {
-            _client.Connect();
             while(true)
             {
                 await Task.Delay(1000);

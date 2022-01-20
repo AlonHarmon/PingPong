@@ -22,13 +22,7 @@ namespace Client
             _buffer = new byte[bufferSize];
             _socket = new Socket(ipAddress.AddressFamily,
                 SocketType.Stream, ProtocolType.Tcp );
-            _port = port;
-        }
-
-        public void Connect()
-        {
-            IPEndPoint remoteEndPoint = new IPEndPoint(((IPEndPoint)(_socket.RemoteEndPoint)).Address, _port);
-            _socket.Connect(remoteEndPoint);
+            _socket.Connect(ipAddress, port);
         }
         public string Receive()
         {
