@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using System.Net.NetworkInformation;
 namespace Server
 {
@@ -6,8 +7,8 @@ namespace Server
         public EchoServer Build()
         {
             
-            var socketServer = new SecketServer(1024);
+            var socketServer = new TcpListenerServer(1024);
             return new EchoServer(socketServer);
-        }       
+        }
     }
 }
